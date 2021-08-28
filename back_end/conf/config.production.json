@@ -1,0 +1,39 @@
+{
+    "name": "xss_platform",
+    "mode": "release",
+    "port": 80,
+    "start_time": "2021-01-01",
+    "machine_id": 1,
+    "baseurl":"8b1t.cn",
+    "use_https":true,
+    "log": {
+        "level": "debug",
+        "filename": "web_app.log",
+        "max_size": 200,
+        "max_backups": 7,
+        "max_age": 30,
+        "compress": false
+    },
+    "mysql": {
+        "host": "127.0.0.1",
+        "port": 3306,
+        "dbname": "go_xss_platform",
+        "max_open_conns": 0,
+        "max_idle_conns": 10000,
+        "max_left_time":60
+    },
+    "redis": {
+        "host": "127.0.0.1",
+        "port": 6379,
+        "db": 0,
+        "passwd": "",
+        "pool_size": 100,
+        "key_prefix":"xss"
+    },
+    "payload":{
+        "option":"{option_%s}",
+        "baseurl":"{base_url}",
+        "url_key":"{project_url_key}"
+    }
+
+}

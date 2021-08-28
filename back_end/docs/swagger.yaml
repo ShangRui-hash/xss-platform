@@ -1,0 +1,324 @@
+definitions:
+  controllers._RespAdminLogin:
+    properties:
+      code:
+        type: integer
+      msg:
+        type: object
+      token:
+        description: jwt令牌
+        type: string
+    type: object
+  controllers._RespModuleDetail:
+    properties:
+      code:
+        type: integer
+      module:
+        $ref: '#/definitions/models.Module'
+      msg:
+        type: object
+    type: object
+  controllers._RespProjectForm:
+    properties:
+      code:
+        type: integer
+      form:
+        $ref: '#/definitions/models.ParamCreateProject'
+      msg:
+        type: object
+    type: object
+  controllers.Resp:
+    properties:
+      code:
+        type: integer
+      data:
+        type: object
+      msg:
+        type: object
+    type: object
+  models.Module:
+    properties:
+      created_at:
+        type: string
+      desc:
+        type: string
+      id:
+        type: integer
+      is_admin:
+        type: boolean
+      is_common:
+        type: boolean
+      name:
+        type: string
+      option_list:
+        items:
+          type: string
+        type: array
+      param_list:
+        items:
+          type: string
+        type: array
+      updated_at:
+        type: string
+      user_id:
+        type: integer
+      username:
+        type: string
+      xss_payload:
+        type: string
+    type: object
+  models.ModuleItem:
+    properties:
+      id:
+        type: integer
+      is_choosed:
+        type: boolean
+      name:
+        type: string
+      option_list:
+        items:
+          $ref: '#/definitions/models.OptionItem'
+        type: array
+    type: object
+  models.OptionItem:
+    properties:
+      name:
+        type: string
+      value:
+        type: string
+    type: object
+  models.ParamCreateProject:
+    properties:
+      desc:
+        type: string
+      module_list:
+        items:
+          $ref: '#/definitions/models.ModuleItem'
+        type: array
+      name:
+        type: string
+    required:
+    - desc
+    - module_list
+    - name
+    type: object
+  models.ParamLogin:
+    properties:
+      g_recaptcha_response:
+        type: string
+      password:
+        type: string
+      username:
+        type: string
+    required:
+    - g_recaptcha_response
+    - password
+    - username
+    type: object
+host: localhost
+info:
+  contact:
+    email: 2227627947@qq.com
+    name: Rick Shang
+    url: https://gitee.com/nothing-is-nothing
+  description: 基于gin+vue+mysql+redis 实现的xss平台
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  termsOfService: http://swagger.io/terms/
+  title: XSS Platform
+  version: "1.0"
+paths:
+  /api/v1/admin/login:
+    post:
+      consumes:
+      - application/json
+      description: 管理员登录接口
+      parameters:
+      - description: 查询参数
+        in: body
+        name: object
+        required: true
+        schema:
+          $ref: '#/definitions/models.ParamLogin'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/controllers._RespAdminLogin'
+      summary: 管理员登录接口
+      tags:
+      - 后台相关接口
+  /api/v1/admin/modules:
+    post:
+      consumes:
+      - application/json
+      description: 添加xss模块
+      parameters:
+      - description: Bearer 令牌
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - in: query
+        name: desc
+        required: true
+        type: string
+      - in: query
+        name: is_common
+        required: true
+        type: boolean
+      - in: query
+        name: name
+        required: true
+        type: string
+      - in: query
+        items:
+          type: string
+        name: option_list
+        required: true
+        type: array
+      - in: query
+        items:
+          type: string
+        name: param_list
+        required: true
+        type: array
+      - in: query
+        name: xss_payload
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/controllers.Resp'
+      security:
+      - ApiKeyAuth: []
+      summary: 添加xss模块
+      tags:
+      - 前后台共用接口
+  /api/v1/module/{id}:
+    get:
+      description: 用户只可以获取公共模块的详情和属于自己的模块的详情
+      parameters:
+      - description: 模块id
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Bearer 用户token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/controllers._RespModuleDetail'
+      summary: 用户获取模块详情
+      tags:
+      - 前台相关接口
+  /api/v1/modules:
+    post:
+      consumes:
+      - application/json
+      description: 添加xss模块
+      parameters:
+      - description: Bearer 令牌
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - in: query
+        name: desc
+        required: true
+        type: string
+      - in: query
+        name: is_common
+        required: true
+        type: boolean
+      - in: query
+        name: name
+        required: true
+        type: string
+      - in: query
+        items:
+          type: string
+        name: option_list
+        required: true
+        type: array
+      - in: query
+        items:
+          type: string
+        name: param_list
+        required: true
+        type: array
+      - in: query
+        name: xss_payload
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/controllers.Resp'
+      security:
+      - ApiKeyAuth: []
+      summary: 添加xss模块
+      tags:
+      - 前后台共用接口
+  /api/v1/projectform:
+    get:
+      consumes:
+      - application/json
+      description: 获取添加项目需要的表单，因为模块是变化的，所以添加项目需要的填的表单项需要后端动态生成。创建项目时需要填的是一个空表单，无序提交id。配置项目时需要对有数据的表单进行修改，需要提交项目id
+      parameters:
+      - description: Bearer token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 项目id
+        in: query
+        name: object
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/controllers._RespProjectForm'
+      summary: 获取创建项目/配置项目需要填的表单
+      tags:
+      - 前台相关接口
+  /basicAuth:
+    get:
+      description: BasicAuth 钓鱼
+      parameters:
+      - description: Base64编码的用户名和密码
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/controllers.Resp'
+      security:
+      - ApiKeyAuth: []
+      summary: BasicAuth 钓鱼
+      tags:
+      - 攻击相关接口
+swagger: "2.0"
