@@ -8,6 +8,9 @@ https://8b1t.cn
 ![avatar](https://img-blog.csdnimg.cn/20210828180007409.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5peg5Zyo5peg5LiN5Zyo,size_20,color_FFFFFF,t_70,g_se,x_16)
 ![avatar](https://img-blog.csdnimg.cn/20210828180127793.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5peg5Zyo5peg5LiN5Zyo,size_20,color_FFFFFF,t_70,g_se,x_16)
 ![avatar](https://img-blog.csdnimg.cn/20210828180222750.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5peg5Zyo5peg5LiN5Zyo,size_20,color_FFFFFF,t_70,g_se,x_16)
+支持消息推送
+![avatar](https://img-blog.csdnimg.cn/20210828183223575.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5peg5Zyo5peg5LiN5Zyo,size_20,color_FFFFFF,t_70,g_se,x_16)
+
 # 部署方法
 先启动MySQL 和Redis  
 要求MySQL 版本高于5.5 版本，因为5.5版本以及以下的版本一张表中不允许定义两个timestamp类型  
